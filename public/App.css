@@ -1,13 +1,16 @@
 /* Global */
+*{
+  font-family: 'Indie Flower', 'cursive';
+}
 
 body{
-  background: darksalmon
+  background: darksalmon;
 }
 
 #logo{
+  margin:0;
   text-align: center;
-  font-family: 'Indie Flower', 'cursive';
-  font-size: 4em
+  font-size: 4em;
 }
 
 /*  img{
@@ -22,12 +25,42 @@ body{
   100%{ transform: rotate(-5deg)}
 }
 
+.controls{
+  display: flex;
+  justify-content: center
+}
+
+.control-block{
+  margin: 0 100px;
+  color: 
+}
+
+.control-block .title{
+  font-size: 40px;
+  margin: 0
+}
+
+.control-block .actions{
+  display: flex;
+}
+.control-block .actions h1 {
+  font-size: 3em;
+  margin: 0 30px;
+}
+
+.control-block .actions button{
+  width: 60px;
+  height: 60px;
+  font-size: 50px;
+  line-height: 20px;
+}
+
 /* Timer */
 
 #timer{
   width:500px;
   height: 500px;
-  margin:auto;
+  margin:0 auto;
   padding: 3px;
   border: 2px solid green;
   border-radius: 50%;
@@ -50,3 +83,4 @@ body{
   background:green;
   padding-top: 50%;
 }
+
