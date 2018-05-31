@@ -6,13 +6,13 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      work: {
-        run: false,
-        time: 1
+      session: {
+        run: true,
+        time: 25
       },
       break: {
         run: false,
-        time: 1
+        time: 5
       }
     }
   }
@@ -34,13 +34,23 @@ class App extends Component {
     })
   }
 
+  start() {
+    const { session: { time: workTime } } = this.state
+    const { break: { time: breakTime } } = this.state
+
+    alert('Start!!')
+  }
+
+  reset(){
+    alert('Reset!!!')
+  }
   render() {
     return (
       <div className="App">
         <div className="controls">
           <Control
-            name={'work'}
-            state={this.state.work.time}
+            name={'session'}
+            state={this.state.session.time}
             increment={(name) => this.increment(name)}
             decrement={(name) => this.decrement(name)}
           />
@@ -51,7 +61,11 @@ class App extends Component {
             decrement={(name) => this.decrement(name)}
           />
         </div>
-        <Timer />
+        <Timer 
+        data ={this.state} 
+        start={() => this.start()} 
+        reset={()=>this.reset()}
+        />
       </div>
     );
   }
