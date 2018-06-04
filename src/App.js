@@ -11,14 +11,16 @@ class App extends Component {
       active: 'session',
       timeLeft: 0,
       running: false,
-      seconds: 0
-    }
-    this.timer
+      seconds: 0,
+      percent:0
+    },
+    this.timer=null
   }
 
   increment(name) {
-    const { [name]: time } = this.state;
+    const { [name]: time, timeLeft, seconds } = this.state;
     if (time === 60) return;
+    if(!timeLeft && !seconds)
     this.setState({
       [name]: time + 1
     })
@@ -26,20 +28,21 @@ class App extends Component {
   }
 
   decrement(name) {
-    const { [name]: time } = this.state;
+    const { [name]: time, timeLeft, seconds } = this.state;
     if (time === 1) return;
+    if(!timeLeft && !seconds)    
     this.setState({
       [name]: time - 1
     })
   }
 
   start() {
-
     if (this.state.running) {
       clearInterval(this.timer)
       this.setState({ running: false })
       return;
     }
+
     this.timer = setInterval(() => {
       let {
         sessionTime,
@@ -47,7 +50,8 @@ class App extends Component {
         active,
         timeLeft,
         running,
-        seconds
+        seconds,
+        percent
       } = this.state
 
       if (!timeLeft && !seconds)
@@ -65,13 +69,15 @@ class App extends Component {
           active: active === 'session' ? 'break' : 'session',
           timeLeft: active === 'session' ? breakTime : sessionTime,
           running: true,
-          seconds: 0
+          seconds: 0,
+          percent:0
         })
       else
         this.setState({
           timeLeft: timeLeft,
           running: true,
-          seconds: seconds
+          seconds: seconds,
+          percent:percent+1
         })
     }, 1000)
   }
@@ -83,7 +89,8 @@ class App extends Component {
       active: 'session',
       timeLeft: 0,
       running: false,
-      seconds: 0
+      seconds: 0,
+      percent:0
     })
     clearInterval(this.timer);
   }
