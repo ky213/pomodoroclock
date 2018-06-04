@@ -98,9 +98,12 @@ body{
 #time-left{
   font-size: 5rem;
   z-index: 1;
+  width:32%;
 }
 
 #background button{
   font-size: 2em;
-  z-index: 1
+  z-index: 1;
+  
 }
+
