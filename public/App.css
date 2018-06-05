@@ -13,9 +13,9 @@ body{
   font-size: 4em;
 }
 
-/*  img{
+.animation{
  animation: vibrate .1s infinite;
-} */ 
+}  
 
 @keyframes vibrate {
   0%{ transform: rotate(-5deg)}

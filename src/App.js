@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Timer from './components/timer'
 import Control from './components/control'
+import Beep from './components/beep'
 
 class App extends Component {
   constructor() {
@@ -12,28 +13,28 @@ class App extends Component {
       timeLeft: 0,
       running: false,
       seconds: 0,
-      percent:0
+      percent: 0
     },
-    this.timer=null
+      this.timer = null
   }
 
   increment(name) {
     const { [name]: time, timeLeft, seconds } = this.state;
     if (time === 60) return;
-    if(!timeLeft && !seconds)
-    this.setState({
-      [name]: time + 1
-    })
+    if (!timeLeft && !seconds)
+      this.setState({
+        [name]: time + 1
+      })
 
   }
 
   decrement(name) {
     const { [name]: time, timeLeft, seconds } = this.state;
     if (time === 1) return;
-    if(!timeLeft && !seconds)    
-    this.setState({
-      [name]: time - 1
-    })
+    if (!timeLeft && !seconds)
+      this.setState({
+        [name]: time - 1
+      })
   }
 
   start() {
@@ -70,14 +71,14 @@ class App extends Component {
           timeLeft: active === 'session' ? breakTime : sessionTime,
           running: true,
           seconds: 0,
-          percent:0
+          percent: 0
         })
       else
         this.setState({
           timeLeft: timeLeft,
           running: true,
           seconds: seconds,
-          percent:percent+1
+          percent: percent + 1
         })
     }, 1000)
   }
@@ -90,9 +91,11 @@ class App extends Component {
       timeLeft: 0,
       running: false,
       seconds: 0,
-      percent:0
+      percent: 0
     })
     clearInterval(this.timer);
+    document.querySelector('#beep').load()
+    
   }
 
   render() {
@@ -118,6 +121,10 @@ class App extends Component {
           data={this.state}
           start={() => this.start()}
           reset={() => this.reset()}
+        />
+        <Beep
+          timeLeft={this.state.timeLeft}
+          percent={this.state.percent}
         />
       </div>
     );
