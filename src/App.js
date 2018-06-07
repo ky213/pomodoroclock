@@ -7,95 +7,53 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      sessionTime: 1,
-      breakTime: 1,
-      active: 'session',
-      timeLeft: 0,
+      sessionTime: 25,
+      breakTime: 5,
       running: false,
-      seconds: 0,
-      percent: 0
-    },
-      this.timer = null
+      changingTime:'',
+      reset:false
+    }
   }
 
   increment(name) {
-    const { [name]: time, timeLeft, seconds } = this.state;
+    const { [name]: time, running } = this.state;
     if (time === 60) return;
-    if (!timeLeft && !seconds)
+    if (!running)
       this.setState({
-        [name]: time + 1
+        [name]: time + 1,
+        changingTime:name,
+        reset:false
       })
-
   }
 
   decrement(name) {
-    const { [name]: time, timeLeft, seconds } = this.state;
+    const { [name]: time, running } = this.state;
     if (time === 1) return;
-    if (!timeLeft && !seconds)
+    if (!running)
       this.setState({
-        [name]: time - 1
+        [name]: time - 1,
+        changingTime:name,
+        reset:false
       })
   }
 
-  start() {
-    if (this.state.running) {
-      clearInterval(this.timer)
-      this.setState({ running: false })
-      return;
-    }
-
-    this.timer = setInterval(() => {
-      let {
-        sessionTime,
-        breakTime,
-        active,
-        timeLeft,
-        running,
-        seconds,
-        percent
-      } = this.state
-
-      if (!timeLeft && !seconds)
-        timeLeft = active === 'session' ? sessionTime : breakTime
-
-      if (seconds === 0) {
-        seconds = 60
-        timeLeft--
-      }
-
-      seconds--
-
-      if (seconds === 0 && timeLeft === 0)
-        this.setState({
-          active: active === 'session' ? 'break' : 'session',
-          timeLeft: active === 'session' ? breakTime : sessionTime,
-          running: true,
-          seconds: 0,
-          percent: 0
-        })
-      else
-        this.setState({
-          timeLeft: timeLeft,
-          running: true,
-          seconds: seconds,
-          percent: percent + 1
-        })
-    }, 1000)
+  startStop() {
+    this.setState({
+      running: this.state.running ? false : true,
+      changingTime:'',
+      reset:false
+    })
   }
 
   reset() {
     this.setState({
       sessionTime: 25,
       breakTime: 5,
-      active: 'session',
-      timeLeft: 0,
       running: false,
-      seconds: 0,
-      percent: 0
+      changingTime:'',
+      reset:true
     })
-    clearInterval(this.timer);
-    document.querySelector('#beep').load()
-    
+    //document.querySelector('#beep').load()
   }
 
   render() {
@@ -119,12 +77,8 @@ class App extends Component {
         </div>
         <Timer
           data={this.state}
-          start={() => this.start()}
+          startStop={() => this.startStop()}
           reset={() => this.reset()}
-        />
-        <Beep
-          timeLeft={this.state.timeLeft}
-          percent={this.state.percent}
         />
       </div>
     );
