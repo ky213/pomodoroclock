@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Timer from './components/timer'
 import Control from './components/control'
-import Beep from './components/beep'
 
 class App extends Component {
   constructor() {
@@ -62,7 +61,7 @@ class App extends Component {
         </div>
         <Timer
           data={this.state}
-          reset={()=>this.setState({sessionTime:25,breakTime:5})}
+          reset={()=>this.setState({sessionTime:25,breakTime:5, running:false})}
           toggleRunningState={(running)=>this.toggleRunningState(running)}
         />
 

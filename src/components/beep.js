@@ -6,14 +6,15 @@ export default class Beep extends Component {
         this.beep = createRef()
     }
 
-    componentDidUpdate() {
+    componentDidUpdate({ progress }, state) {
         const clock = document.querySelector('#logo img')
-        if ((this.props.timeLeft * 60) || 60 === this.props.progress) {
+        if (progress == 100) {
             this.beep.current.play()
             clock.className = 'animation'
         }
-        if (this.props.progress >= 4)
+        if (progress == 5)
             clock.className = ''
+
     }
     render() {
         return (
@@ -22,7 +23,6 @@ export default class Beep extends Component {
                     id='beep'
                     src='./beep.wav'
                     ref={this.beep}
-                    volume='0.2'
                 ></audio>
             </div>
         )

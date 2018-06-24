@@ -13,6 +13,11 @@ body{
   font-size: 4em;
 }
 
+.App{
+  transform: scale(.8);
+  margin-top: -60px;
+}
+
 .animation{
  animation: vibrate .1s infinite;
 }  
